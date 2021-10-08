@@ -1,0 +1,597 @@
+<link rel="stylesheet" href="/admin/list/css/style.css">
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="row page-titles" style="margin:0;">
+            <div class="col-md-5 align-self-center">
+                <h4 class="text-themecolor">List users</h4>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        
+        <div class="row">
+            <div class="col-md-12">
+                <!--<a class="btn btn-success fa fa-plus-square-o" style="line-height: 15px; margin: 5px;" type="submit" href="http://localhost:3003/list/users/create"> Add new</a>-->
+                <button class="btn btn-success fa fa-plus-square-o" type="submit" style="line-height: 15px; margin: 5px;" data-toggle="modal" data-target="#exampleModal"> Add new</button>
+                <button class="btn btn-success fa fa-filter dropdown-toggle" type="button" style="line-height: 15px; margin: 5px; float: right;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Filter</button>
+                
+                <!-- Popup Filter -->
+                <form method="get" active="http://localhost:3003/list/users">
+                <div class="dropdown-menu dropdown-menu-right" style="background-color: none;">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="" style="float:left">
+                                    <label style="color: black; font-size: 13px;"><b>Fillter by</b></label>
+                            </div>
+                            <div class="" style="float:right">
+                                    <a href="http://localhost:3003/list/users" style="color: black; text-decoration: underline; font-size: 13px;">Reset fillters</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-sm-6" style="float:left; border-top: 1px solid;">
+                            <label style="font-size: 11px; border-bottom: 1px solid;">Account type</label>
+                            <% if (data) { %>
+                            <% data.accounttypes.forEach((item) => { %>
+                                <div class="checkbox" style="font-size: 13px; width: auto;">
+                                    <label>
+                                        <input type="checkbox" name="ftsAcct" value="<%= item.id %>"> <b><%= item.name %></b>
+                                        <% if (item.count == null) { %>
+                                            <sub>(0)</sub>
+                                        <% } else { %>
+                                            <sub>(<%= item.count %>)</sub>
+                                        <% } %>
+                                    </label>
+                                </div>
+                            <% }); %>
+                            <% } %>
+                        </div>
+                        <div class="col-sm-6" style="float:right; border-top: 1px solid;">
+                            <label style="font-size: 11px; border-bottom: 1px solid;">Locked</label>
+                            <% if (data) { %>
+                            <% data.locked.forEach((item) => { %>
+                                <div class="checkbox" style="font-size: 13px;">
+                                    <label><input type="checkbox" name="ftsLock" value="<%= item.locked %>">
+                                        <b>
+                                            <% if (item.locked) { %>
+                                                Locked
+                                            <% } else { %>
+                                                Delocked
+                                            <% } %>
+                                        </b>
+                                        <% if (item.count == null) { %>
+                                            <sub>(0)</sub>
+                                        <% } else { %>
+                                            <sub>(<%= item.count %>)</sub>
+                                        <% } %>
+                                    </label>
+                                </div>
+                            <% }); %>
+                            <% } %>
+                        </div>
+                        <div class="col-sm-6" style="float:right; border-top: 1px solid;">
+                            <label style="font-size: 11px; border-bottom: 1px solid;">Actived</label>
+                            <% if (data) { %>
+                            <% data.actived.forEach((item) => { %>
+                                <div class="checkbox" style="font-size: 13px;">
+                                    <label><input type="checkbox" name="ftsActi" value="<%= item.actived %>">
+                                        <b>
+                                            <% if (item.actived) { %>
+                                                Actived
+                                            <% } else { %>
+                                                Deactived
+                                            <% } %>
+                                        </b>
+                                        <% if (item.count == null) { %>
+                                            <sub>(0)</sub>
+                                        <% } else { %>
+                                            <sub>(<%= item.count %>)</sub>
+                                        <% } %>
+                                    </label>
+                                </div>
+                            <% }); %>
+                            <% } %>
+                        </div>
+                    </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-sm-12" style="border-top: 1px solid;">
+                                <button type="submit" style="display:none;"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Popup Modal Create New -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Create new account</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="post" action="http://localhost:3003/list/users">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Email:</label>
+                            <input type="text" name="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Password:</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Firstname:</label>
+                            <input type="text" name="firstname" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Lastname:</label>
+                            <input type="text" name="lastname" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Account type:</label>
+                            <select name="accounttype" class="form-control" required>
+                                <option selected="selected" disabled="disabled" value="0">-- Select --</option>
+                                <% if (data) { %>
+                                <% data.accounttypes.forEach((item) => { %>
+                                <option value="<%= item.id %>"><%= item.name %></option>
+                                <% }); %>
+                                <% } %>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-wrap">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Account type</th>
+                                <th>Authentication</th>
+                                <th>Locked</th>
+                                <th>Actived</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (data) { %>
+                            <% data.data.forEach((item) => { %>
+                                <tr class="alert" role="alert">
+                                    <td class="d-flex align-items-center">
+                                        <div class="img" style="background-image: url(users/images/<%= item.avatar %>)"></div>
+                                        <div class="pl-3 email">
+                                            <span><%= item.firstname %> <%= item.lastname %></span>
+                                            <span><%= item.email %></span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <% if (item.accounttype) { %>
+                                            <% if (item.accounttype.id == 1) { %>
+                                                <span class="label label-danger">
+                                                    <%= item.accounttype.name %>
+                                                </span>
+                                            <% } else if (item.accounttype.id == 2) { %>
+                                                <span class="label label-warning">
+                                                    <%= item.accounttype.name %>
+                                                </span>
+                                            <% } else if (item.accounttype.id == 3) { %>
+                                                <span class="label label-info">
+                                                    <%= item.accounttype.name %>
+                                                </span>
+                                            <% } else if (item.accounttype.id == 4) { %>
+                                                <span class="label label-success">
+                                                    <%= item.accounttype.name %>
+                                                </span>
+                                            <% } else if (item.accounttype.id == 5) { %>
+                                                <span class="label label-primary">
+                                                    <%= item.accounttype.name %>
+                                                </span>
+                                            <% } %>
+                                        <% } else { %>
+                                            <span><b>...</b></span>
+                                        <% } %>
+                                    </td>
+                                    <td>
+                                        <% if (item.authentication) { %>
+                                            <%= item.authentication%>
+                                        <% } else { %>
+                                            <b>...</b>
+                                        <% } %>
+                                    </td>
+                                    <td>
+                                        <a href="http://localhost:3003/list/users/locked/<%= item.id %>"><%= item.locked %></a>
+                                    </td>
+                                    <td class="status">
+                                        <% if (item.actived == 1) { %>
+                                            <span class="active"><%= item.actived %></span>
+                                        <% } else if (item.actived == 0) { %>
+                                            <span class="default"><%= item.actived %></span>
+                                        <% } %>
+                                    </td>
+                                    <td>
+                                        <div style="float: right;">
+                                        <div class="dropdownbtn" style="float: left;"><a href="http://localhost:3003/list/users/edit/<%= item.id %>"><img src="admin/list/img/edit.png" alt="Edit" style="width: 20px; height: 20px;"></a></div>
+                                        <div class="dropdownbtn" style="float: right;"><a onclick="return confirm('Chắc chắn muốn xóa?')" href="http://localhost:3003/list/users/delete/<%= item.id %>"><img src="admin/list/img/delete.png" alt="Delete" style="width: 20px; height: 20px;"></a></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <% }); %>
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Start Pages Numb -->
+        <!-- ============================================================== -->
+        <style>
+            .a-pages {
+                background-color: darkgray;
+                border-radius: 5px;
+                color: black;
+                line-height: 5px;
+                margin: 0.5px;
+                border: none;
+            }
+        </style>
+
+        <div class="row">
+            <!-- Tổng trang -->
+            <div class="col-md-2">
+                <% if (data) { %>
+                Page <%= data.current %>/ <%= data.pages %>
+                <% } %>
+            </div>
+
+            <!-- hiển thị phân trang nếu có trang -->
+            <% if (data) { %>
+            <% if (data.search) { %>
+
+                <% if (data.pages > 1) { %>
+                <nav class="mx-auto">
+                <ul class="pagination" style="margin-top: 10px;">
+                    <!-- FIRST ITEM -->
+                    <% if (data.current == 1) { %>
+                        <li class="page-item disabled">
+                        <a class="page-link a-pages" style="background-color: darkgray;color: black;" href="#">First</a>
+                        </li>
+                    <% } else { %>
+                        <li class="page-item">
+                        <a class="page-link a-pages" href="http://localhost:3003/list/users?search=<%= data.search %>">First</a>
+                        </li>
+                    <% } %>
+
+                    <!-- LAST ITEM -->
+                    <% if (data.current == 1) { %>
+                        <li class="page-item disabled">
+                        <a class="page-link a-pages" style="background-color: darkgray;color: black;" href="#">Back</a>
+                        </li>
+                    <% } else { %>
+                        <li class="page-item">
+                        <a class="page-link a-pages" href="http://localhost:3003/list/users/page=<%= Number(data.current) - 1 %>?search=<%= data.search %>">Back</a>
+                        </li>
+                    <% } %>
+
+                    <!-- ITEMS  -->
+                    <% let i = (Number(data.current) > 3 ? Number(data.current) - 2 : 1) %>
+                    <% if (i !== 1) { %>
+                        <li class="page-item disabled">
+                        <a class="page-link a-pages" style="background-color: darkgray;color: black;" href="#">...</a>
+                        </li>
+                    <% } %>
+                    <% for (; i <= (Number(data.current) + 2) && i <= data.pages; i++) { %>
+                    <% if (i == data.current) { %>
+                        <li class="page-item active">
+                        <a class="page-link a-pages" href="http://localhost:3003/list/users/page=<%= i %>?search=<%= data.search %>">
+                            <%= i %>
+                        </a>
+                        </li>
+                    <% } else { %>
+                        <li class="page-item">
+                        <a class="page-link a-pages" href="http://localhost:3003/list/users/page=<%= i %>?search=<%= data.search %>">
+                            <%= i %>
+                        </a>
+                        </li>
+                    <% } %>
+                    <% } %>
+                    <% if (i == Number(data.current) + 2 + 1 && i < data.pages) { %>
+                        <li class="page-item disabled">
+                        <a class="page-link a-pages" style="background-color: darkgray;color: black;" href="#">...</a>
+                        </li>
+                    <% } %>
+
+                    <!-- NEXT ITEM -->
+                    <% if (data.current == data.pages) { %>
+                        <li class="page-item disabled">
+                        <a class="page-link a-pages" style="background-color: darkgray;color: black;" href="#">Next</a>
+                        </li>
+                    <% } else { %>
+                        <li class="page-item">
+                        <a class="page-link a-pages" href="http://localhost:3003/list/users/page=<%= Number(data.current) + 1 %>?search=<%= data.search %>">Next</a>
+                        </li>
+                    <% } %>
+
+                    <!-- LAST ITEM -->
+                    <% if (data.current == data.pages) { %>
+                        <li class="page-item disabled">
+                        <a class="page-link a-pages" style="background-color: darkgray;color: black;" href="#">Last</a>
+                        </li>
+                    <% } else { %>
+                        <li class="page-item">
+                        <a class="page-link a-pages" href="http://localhost:3003/list/users/page=<%= data.pages %>?search=<%= data.search %>">Last</a>
+                        </li>
+                    <% } %>
+                </ul>
+                </nav>
+
+                <!-- Go to Page -->
+                <div class="col-md-2" style="padding: 5px;">
+                    <div style="float: right;">
+                        <form method="get">
+                            <label for="">Go page</label>
+                            <input type="number" name="page" value="" placeholder="1-<%= data.pages %>" min="1" max="<%= data.pages %>" style="width: 60px; height: 25px; font-size: 15px;">
+                        </form>
+                    </div>
+                </div>
+                <% } %>
+
+            <% } else if (data.filter) { %>
+
+                <% if (data.pages > 1) { %>
+                <nav class="mx-auto">
+                <ul class="pagination" style="margin-top: 10px;">
+                    <!-- FIRST ITEM -->
+                    <% if (data.current == 1) { %>
+                        <li class="page-item disabled">
+                        <a class="page-link a-pages" style="background-color: darkgray;color: black;" href="#">First</a>
+                        </li>
+                    <% } else { %>
+                        <li class="page-item">
+                        <a class="page-link a-pages" href="http://localhost:3003/list/users?<%= data.filter %>">First</a>
+                        </li>
+                    <% } %>
+
+                    <!-- LAST ITEM -->
+                    <% if (data.current == 1) { %>
+                        <li class="page-item disabled">
+                        <a class="page-link a-pages" style="background-color: darkgray;color: black;" href="#">Back</a>
+                        </li>
+                    <% } else { %>
+                        <li class="page-item">
+                        <a class="page-link a-pages" href="http://localhost:3003/list/users/page=<%= Number(data.current) - 1 %>?<%= data.filter %>">Back</a>
+                        </li>
+                    <% } %>
+
+                    <!-- ITEMS  -->
+                    <% let i = (Number(data.current) > 3 ? Number(data.current) - 2 : 1) %>
+                    <% if (i !== 1) { %>
+                        <li class="page-item disabled">
+                        <a class="page-link a-pages" style="background-color: darkgray;color: black;" href="#">...</a>
+                        </li>
+                    <% } %>
+                    <% for (; i <= (Number(data.current) + 2) && i <= data.pages; i++) { %>
+                    <% if (i == data.current) { %>
+                        <li class="page-item active">
+                        <a class="page-link a-pages" href="http://localhost:3003/list/users/page=<%= i %>?<%= data.filter %>">
+                            <%= i %>
+                        </a>
+                        </li>
+                    <% } else { %>
+                        <li class="page-item">
+                        <a class="page-link a-pages" href="http://localhost:3003/list/users/page=<%= i %>?<%= data.filter %>">
+                            <%= i %>
+                        </a>
+                        </li>
+                    <% } %>
+                    <% } %>
+                    <% if (i == Number(data.current) + 2 + 1 && i < data.pages) { %>
+                        <li class="page-item disabled">
+                        <a class="page-link a-pages" style="background-color: darkgray;color: black;" href="#">...</a>
+                        </li>
+                    <% } %>
+
+                    <!-- NEXT ITEM -->
+                    <% if (data.current == data.pages) { %>
+                        <li class="page-item disabled">
+                        <a class="page-link a-pages" style="background-color: darkgray;color: black;" href="#">Next</a>
+                        </li>
+                    <% } else { %>
+                        <li class="page-item">
+                        <a class="page-link a-pages" href="http://localhost:3003/list/users/page=<%= Number(data.current) + 1 %>?<%= data.filter %>">Next</a>
+                        </li>
+                    <% } %>
+
+                    <!-- LAST ITEM -->
+                    <% if (data.current == data.pages) { %>
+                        <li class="page-item disabled">
+                        <a class="page-link a-pages" style="background-color: darkgray;color: black;" href="#">Last</a>
+                        </li>
+                    <% } else { %>
+                        <li class="page-item">
+                        <a class="page-link a-pages" href="http://localhost:3003/list/users/page=<%= data.pages %>?<%= data.filter %>">Last</a>
+                        </li>
+                    <% } %>
+                </ul>
+                </nav>
+
+                <!-- Go to Page -->
+                <div class="col-md-2" style="padding: 5px;">
+                    <div style="float: right;">
+                        <form method="get">
+                            <label for="">Go page</label>
+                            <input type="number" name="page" value="" placeholder="1-<%= data.pages %>" min="1" max="<%= data.pages %>" style="width: 60px; height: 25px; font-size: 15px;">
+                        </form>
+                    </div>
+                </div>
+                <% } %>
+
+            <% } else { %>
+
+                <% if (data.pages > 1) { %>
+                <nav class="mx-auto">
+                <ul class="pagination" style="margin-top: 10px;">
+                    <!-- FIRST ITEM -->
+                    <% if (data.current == 1) { %>
+                        <li class="page-item disabled">
+                        <a class="page-link a-pages" style="background-color: darkgray;color: black;" href="#">First</a>
+                        </li>
+                    <% } else { %>
+                        <li class="page-item">
+                        <a class="page-link a-pages" href="http://localhost:3003/list/users">First</a>
+                        </li>
+                    <% } %>
+
+                    <!-- BACK ITEM -->
+                    <% if (data.current == 1) { %>
+                        <li class="page-item disabled">
+                        <a class="page-link a-pages" style="background-color: darkgray;color: black;" href="#">Back</a>
+                        </li>
+                    <% } else { %>
+                        <li class="page-item">
+                        <a class="page-link a-pages" href="http://localhost:3003/list/users/page=<%= Number(data.current) - 1 %>">Back</a>
+                        </li>
+                    <% } %>
+
+                    <!-- ITEMS 10 PAGES -->
+                    <% let jj = parseInt((Number(data.current) - 3) / 10) * 10; %>
+                    <% let tempp = jj - 20 > 0 ? jj - 20 : 10 %>
+                    <% if (tempp > 10) { %>
+                        <li class="page-item disabled">
+                        <a class="page-link a-pages" style="background-color: darkgray;color: black;" href="#">...</a>
+                        </li>
+                    <% } %>
+                    <% for (; tempp<= jj && tempp > 1; tempp+=10) { %>
+                        <li class="page-item">
+                            <a class="page-link a-pages" href="http://localhost:3003/list/users/page=<%= tempp %>">
+                                <%= tempp %>
+                            </a>
+                        </li>
+                    <% } %>
+
+                    <!-- ITEMS  -->
+                    <% let i = (Number(data.current) > 3 ? Number(data.current) - 2 : 1) %>
+                    <% if (i !== 1) { %>
+                        <li class="page-item disabled">
+                        <a class="page-link a-pages" style="background-color: darkgray;color: black;" href="#">...</a>
+                        </li>
+                    <% } %>
+
+                    <% for (; i <= (Number(data.current) + 2) && i <= data.pages; i++) { %>
+                        <% if (i == data.current) { %>
+                            <li class="page-item active">
+                            <a class="page-link a-pages" href="http://localhost:3003/list/users/page=<%= i %>">
+                                <%= i %>
+                            </a>
+                            </li>
+                        <% } else { %>
+                            <li class="page-item">
+                            <a class="page-link a-pages" href="http://localhost:3003/list/users/page=<%= i %>">
+                                <%= i %>
+                            </a>
+                            </li>
+                        <% } %>
+                    <% } %>
+
+                    <% if (i == Number(data.current) + 2 + 1 && i < data.pages) { %>
+                        <li class="page-item disabled">
+                        <a class="page-link a-pages" style="background-color: darkgray;color: black;" href="#">...</a>
+                        </li>
+                    <% } %>
+
+                    <!-- ITEMS 10 PAGES -->
+                    <% let j = parseInt((i - 1) / 10) * 10 + 10; %>
+                    <% let temp = j + 20; %>
+                    <% for (j; j<= temp && j<= data.pages; j+=10) { %>
+                        <li class="page-item">
+                            <a class="page-link a-pages" href="http://localhost:3003/list/users/page=<%= j %>">
+                                <%= j %>
+                            </a>
+                        </li>
+                    <% } %>
+
+                    <% if (j <= data.pages) { %>
+                        <li class="page-item disabled">
+                        <a class="page-link a-pages" style="background-color: darkgray;color: black;" href="#">...</a>
+                        </li>
+                    <% } %>
+
+                    <!-- NEXT ITEM -->
+                    <% if (data.current == data.pages) { %>
+                        <li class="page-item disabled">
+                        <a class="page-link a-pages" style="background-color: darkgray;color: black;" href="#">Next</a>
+                        </li>
+                    <% } else { %>
+                        <li class="page-item">
+                        <a class="page-link a-pages" href="http://localhost:3003/list/users/page=<%= Number(data.current) + 1 %>">Next</a>
+                        </li>
+                    <% } %>
+
+                    <!-- LAST ITEM -->
+                    <% if (data.current == data.pages) { %>
+                        <li class="page-item disabled">
+                        <a class="page-link a-pages" style="background-color: darkgray;color: black;" href="#">Last</a>
+                        </li>
+                    <% } else { %>
+                        <li class="page-item">
+                        <a class="page-link a-pages" href="http://localhost:3003/list/users/page=<%= data.pages %>">Last</a>
+                        </li>
+                    <% } %>
+                </ul>
+                </nav>
+
+                <!-- Go to Page -->
+                <div class="col-md-2" style="padding: 5px;">
+                    <div style="float: right;">
+                        <form method="get">
+                            <label for="">Go page</label>
+                            <input type="number" name="page" value="" placeholder="1-<%= data.pages %>" min="1" max="<%= data.pages %>" style="width: auto; height: 25px; font-size: 15px;">
+                        </form>
+                    </div>
+                </div>
+                <% } %>
+
+            <% } %>
+            <% } %>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Pages Numb -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+</div>

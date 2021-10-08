@@ -1,0 +1,187 @@
+
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="row page-titles">
+            <div class="col-md-5 align-self-center">
+                <h4 class="text-themecolor">Profile</h4>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <!-- Row -->
+        <div class="row">
+            <!-- Column -->
+            <div class="col-lg-4 col-xlg-3 col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <center class="m-t-30"> <img src="/users/images/<%= data.data.avatar %>" class="img-circle" width="150" height="150">
+                            <h4 class="card-title m-t-10"><%= data.data.firstname %> <%= data.data.lastname %></h4>
+                            <h6 class="card-subtitle">Account Manager | Account Status</h6>
+                            <div class="row text-center justify-content-md-center">
+                                <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i>
+                                        <font class="font-medium"><%= data.data.accounttype %></font>
+                                    </a></div>
+                                <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i>
+                                    <% if (data.data.actived) { %>
+                                        <font class="font-medium" style="color: limegreen;">Actived</font>
+                                    <% } else { %>
+                                        <font class="font-medium" style="color: limegreen;">Deactived</font>
+                                    <% } %>
+                                    </a></div>
+                            </div>
+                        </center>
+                    </div>
+                </div>
+                <!-- Reset Password -->
+                <div class="card">
+                    <div class="card-body">
+                        <form class="form-horizontal form-material" action="http://localhost:3003/profile/change-password" method="post">
+                            <% if (data.status == 200) { %>
+                                <label for="" style="color:green; font-family:sans-serif;"><%= data.messageChange %></label>
+                            <% } else { %>
+                                <label for="" style="color:red; font-family:sans-serif;"><%= data.messageChange %></label>
+                            <% } %>
+                            <div class="form-group">
+                                <label class="col-md-12">Old Password</label>
+                                <div class="col-md-12">
+                                    <input type="password" name="oldPassword" value="" placeholder=" - Old Password" class="form-control form-control-line" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12">New Password</label>
+                                <div class="col-md-12">
+                                    <input type="password" name="newPassword" value="" placeholder=" - Password" class="form-control form-control-line" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="example-email" class="col-md-12">Repeat Password</label>
+                                <div class="col-md-12">
+                                    <input type="password" name="repeatPassword" value="" placeholder=" - Repeat Password" class="form-control form-control-line" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <button class="btn btn-success">Change Password</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+            <!-- Column -->
+            <div class="col-lg-8 col-xlg-9 col-md-7">
+                <!-- Your Profile -->
+                <div class="card">
+                    <!-- Tab panes -->
+                    <div class="card-body">
+                        <form class="form-horizontal form-material" method="post" enctype="multipart/form-data">
+                            <div style="float:right;">
+                                <% if (data.status == 200) { %>
+                                    <label for="" style="color:green; font-family:sans-serif;"><%= data.messageProfile %></label>
+                                <% } else { %>
+                                    <label for="" style="color:red; font-family:sans-serif;"><%= data.messageProfile %></label>
+                                <% } %>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12">First Name</label>
+                                <div class="col-md-12">
+                                    <input type="text" name="firstname" value="<%= data.data.firstname %>" placeholder=" - First Name" class="form-control form-control-line">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12">Last Name</label>
+                                <div class="col-md-12">
+                                    <input type="text" name="lastname" value="<%= data.data.lastname %>" placeholder=" - Last Name" class="form-control form-control-line">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="example-email" class="col-md-12">Email</label>
+                                <div class="col-md-12">
+                                    <input type="text" value="<%= data.data.email %>" placeholder=" - ******@gmail.com" class="form-control form-control-line" name="email" id="example-email" readonly>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12">Tel</label>
+                                <div class="col-md-12">
+                                    <input type="text" name="tel" value="<%= data.data.tel %>" placeholder=" - Your number phone (039****336)" class="form-control form-control-line">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12">Address</label>
+                                <div class="col-md-12">
+                                    <input type="text" name="address" value="<%= data.data.address %>" placeholder=" - Your address" class="form-control form-control-line">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-12">Avatar</label>
+                                <div class="col-md-12">
+                                    <input type="file" name="avatarProfile" id="files" style="">
+                                </div>
+                                <div>
+                                    <img src="" alt="" id="image" style="width: 20%; height: 20%; padding: 5px; margin-left: 15px;">
+                                    <button type="button" onclick="deletePic()" style="width: 100px; height: 30px; background: gray; color: white; border: none; border-radius: 5px; display: none;" id="delPic">Xóa ảnh</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <button class="btn btn-success">Update Profile</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Column -->
+        </div>
+        <!-- Row -->
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+</div>
+
+<script type="text/javascript">
+    // Load ảnh khi chọn file
+    document.getElementById("files").onchange = function() {
+
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+        // get loaded data and render thumbnail.
+        document.getElementById("image").src = e.target.result;
+    };
+
+        // read the image file as a data URL.
+        reader.readAsDataURL(this.files[0]);
+        document.getElementById("delPic").style="width: 100px; height: 30px; background: gray; color: white; border: none; border-radius: 5px;";
+    };
+</script>
+
+<script type="text/javascript">
+    // Xóa ảnh
+    function deletePic(){
+        document.getElementById("image").src = "";
+        document.getElementById("files").value="";
+        try{
+        document.getElementById("urlImage").value="";
+        }catch (err){
+
+        }
+        document.getElementById("delPic").style="display: none";
+    }
+</script>

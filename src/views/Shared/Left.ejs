@@ -1,0 +1,45 @@
+<aside class="left-sidebar">
+    <div class="d-flex no-block nav-text-box align-items-center">
+        <span><img src="/admin/assets/images/logo-icon.png" alt="elegant admin template"></span>
+        <a class="waves-effect waves-dark ml-auto hidden-sm-down" href="javascript:void(0)"><i
+                class="ti-menu"></i></a>
+        <a class="nav-toggler waves-effect waves-dark ml-auto hidden-sm-up" href="javascript:void(0)"><i
+                class="ti-menu ti-close"></i></a>
+    </div>
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+                <li> <a class="waves-effect waves-dark" href="http://localhost:3003/profile" aria-expanded="false"><i
+                            class="fa fa-user-circle-o"></i><span class="hide-menu">Profile</span></a></li>
+                <li> <a class="waves-effect waves-dark" href="http://localhost:3003/list/users" aria-expanded="false"><i
+                            class="fa fa-table"></i><span class="hide-menu"></span>List users</a></li>
+                <li> <a class="waves-effect waves-dark" href="#" aria-expanded="false" data-toggle="modal" data-target="#logoutModal"><i
+                            class="fa fa-power-off me-1 ms-1"></i><span class="hide-menu"></span>Logout</a></li>
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+</aside>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="http://localhost:3003/logout">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
