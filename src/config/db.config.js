@@ -5,7 +5,7 @@ module.exports = {
     'connectObj': {
         database: 'demo',
         username: 'postgres',
-        password: '1234',
+        password: '******',
         host: 'localhost',
         post: 5432,
         dialect: 'postgres',
